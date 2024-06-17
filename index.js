@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const productRoutes = require('./routes/productRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,10 +10,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const mongoURL = 'mongodb://localhost:27017';
+const mongoURL = 'mongodb://localhost:27017/Marketplace ';
 
-const productRoutes = require('./routes/productRoutes');
-const categoryRoutes = require('./routes/categoryRoutes');
 
 mongoose.connect(mongoURL,{ useNewUrlParser: true, useUnifiedTopology: true });
 
