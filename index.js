@@ -8,7 +8,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoURL = 'mongodb://localhost:27017';
+
+mongoose.connect(mongoURL,{ useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to DressStore application.' });
