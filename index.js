@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const config = require('./config'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,10 +11,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const mongoURL = 'mongodb://localhost:27017/Marketplace ';
-
-
-mongoose.connect(mongoURL,{ useNewUrlParser: true, useUnifiedTopology: true });
+// MongoDB Connection Configuration
+mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected...'))
+  .catch(err => console.log(err));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to DressStore application.' });
