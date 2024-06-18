@@ -49,16 +49,16 @@ exports.updateProduct = async (req, res) => {
 
 // Delete a product by ID
 exports.deleteProduct = async (req, res) => {
-  try {
-    const product = await Product.findByIdAndDelete(req.params.id);
-    if (!product) {
-      return res.status(404).send();
+    try {
+      const product = await Product.findByIdAndDelete(req.params.id);
+      if (!product) {
+        return res.status(404).send({ message: 'Product not found' });
+      }
+      res.status(200).send({ message: 'Item deleted successfully' });
+    } catch (error) {
+      res.status(500).send({ message: 'An error occurred while deleting the product' });
     }
-    res.send(product);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+  };
 
 // Delete all products
 exports.deleteAllProducts = async (req, res) => {
@@ -68,4 +68,17 @@ exports.deleteAllProducts = async (req, res) => {
     } catch (error) {
       res.status(500).send(error);
     }
+};
+  
+// Find products by name containing keyword
+exports.findProductsByName = async (req, res) => {
+    const keyword = req.query.name;
+    console.log(keyword,'keyword')
+    try {
+      const products = await Product.find({ name: { $regex: keyword, $options: 'i' } });
+      res.send(products);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   };
+  
